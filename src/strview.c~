@@ -1,0 +1,21 @@
+#include <strview.h>
+
+strview str(const char *string)
+{
+  strview view =
+  {
+    .count = strlen(string),
+    .ptr   = string
+  };
+  return view;
+}
+
+strview slice(strview str, int start, int count)
+{
+
+}
+
+strview trim(strview str)
+{
+  return str("");
+}
