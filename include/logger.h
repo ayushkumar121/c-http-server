@@ -2,7 +2,10 @@
 #define LOGGER_H
 
 #include <stdio.h>
+#include <time.h>
 #include <stdarg.h>
+
+#include <strview.h>
 
 #define ANSI_COLOR_RED     "\x1b[31m"
 #define ANSI_COLOR_GREEN   "\x1b[32m"
@@ -12,8 +15,12 @@
 #define ANSI_COLOR_CYAN    "\x1b[36m"
 #define ANSI_COLOR_RESET   "\x1b[0m"
 
-void logInfo(const char *format, ...);
-void logWarn(const char *format, ...);
-void logError(const char *format, ...);
+#define LOG_DATE_FORMAT    "[%02d-%02d-%02d %02d:%02d:%02d]"
+
+void logstr(const char *label, strview view);
+
+void loginfo(const char *format, ...);
+void logwarn(const char *format, ...);
+void logerror(const char *format, ...);
 
 #endif /* LOGGER_H */

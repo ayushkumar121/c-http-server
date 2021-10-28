@@ -6,23 +6,28 @@
 #include <signal.h>
 
 #include <logger.h>
-#include <server.h>
 #include <strview.h>
+#include <server.h>
+#include <request.h>
+#include <response.h>
 
-void handlereq(int sockfd)
-{  
-  char  buff[100];
-  strview hello = str("HTTP/1.1 200 OK\r\n"
-		     "Content-Type: text/plain; charset=utf-8\r\n"
-		     "Content-Length: 14\r\n"
-		     "\r\n"
-		     "Hello world!\r\n");
+void
+reqhandle(int sockfd)
+{
+  response res;
 
+  request req = parsereq(sockfd);
+  strview url = str(req.url);
 
-  logInfo("Request handled:");
+  loginfo("Request handled: %s", req.url);
+  
+  ressend(sockfd, res);
+}
 
-  read(sockfd, buff, sizeof(buff));
-  send(sockfd, hello.ptr, hello.count, 0);
+void
+reqexit()
+{
+  signal(SIGCHLD, SIG_IGN);
 }
 
 int
@@ -31,42 +36,28 @@ main(int argc, char *argv[])
   server s = screate();
   slisten(s, 8080);
 
-  strview view = str("Hello world");
-  strview view2 = slice(view, 5, 2);
-  
-  printf("count=%d, str=%s\n", view2.count, view2.ptr);
-  
   while(1)
   {
     int pid       = 0;
-    int connfd    = saccept(s);
+    int sockfd    = saccept(s);
     
     /* Accept client */
-    if(connfd != -1)
+    if(sockfd != -1)
     {
        if((pid = fork()) == 0)
        {
-	 handlereq(connfd);
+	 reqhandle(sockfd);
 	 break;
        }
        else
        {
 	 if(pid == -1)
-	 {
-	   logError("Cannot fork subprocess:\n\t %s",
-		    strerror(errno));
-	 }
-	 else
-	 {
-	   logInfo("Processing requests for(PID=%d)",
-		   pid);
-	 }
+	   logerror("Cannot fork subprocess:\n\t %s", strerror(errno));
 
-	 /* Handle process exit */
-	 signal(SIGCHLD, SIG_IGN);
+	 reqexit();
        }
        
-       close(connfd);
+       close(sockfd);
     }
   }
      

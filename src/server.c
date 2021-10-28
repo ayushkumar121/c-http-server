@@ -9,7 +9,7 @@ screate()
   /* Creating a socket for ipv4 */
   if((s.sockfd = socket(AF_INET, SOCK_STREAM, 0)) == -1)
   {
-    logError("Socket creation fad with error:\n\t %s",
+    logerror("Socket creation fad with error:\n\t %s",
 	    strerror(errno));
 
     exit(EXIT_FAILURE);
@@ -18,7 +18,7 @@ screate()
   /* Setting socket options */
   if(setsockopt(s.sockfd, SOL_SOCKET, SO_REUSEADDR, (char *) &opt, sizeof(int)) == -1)
   {
-    logError("Cannot set socket options:\n\t REUSEADDR:%s",
+    logerror("Cannot set socket options:\n\t REUSEADDR:%s",
 	    strerror(errno));
 
     exit(EXIT_FAILURE);
@@ -41,7 +41,7 @@ slisten(server s, int port)
   /* Binding socket to address */
   if(bind(s.sockfd, (struct sockaddr *)&addr, sizeof(addr)) != 0)
   {
-    logError("Cannot bind socket to address:\n\t %s",
+    logerror("Cannot bind socket to address:\n\t %s",
 	    strerror(errno));
 
     exit(EXIT_FAILURE);
@@ -50,13 +50,13 @@ slisten(server s, int port)
   /* Listening to port */
   if(listen(s.sockfd, 5) != 0)
   {
-    logError("Cannot listen on port:\n\t %s",
+    logerror("Cannot listen on port:\n\t %s",
 	    strerror(errno));
 
     exit(EXIT_FAILURE);
   }
   
-  logInfo( "Server listening on port: %d", port);
+  loginfo( "Server listening on port: %d", port);
 }
 
 int

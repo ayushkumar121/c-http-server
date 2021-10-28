@@ -5,12 +5,10 @@ cServe is a web server written in c for POXIS compliant operating systems
 
 cServe is planned to be
 
-[ ] Supporting HTTP/1.x and HTTP/2
-[ ] Rest compliant
-[ ] Database support (atleast one of the major ones)
+[.] Supporting HTTP/1.x and HTTP/2 (https://www.ietf.org/rfc/rfc2616.txt)
+[ ] BodyParser
+[ ] JsonParsor
 [ ] Static files
-[ ] Lean and mean
-[ ] High performant
 
 Get Started
 ==========
