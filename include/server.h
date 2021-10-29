@@ -1,28 +1,26 @@
 #ifndef SERVER_H
 #define SERVER_H
 
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <errno.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include <time.h>
 
-#include <unistd.h>
-#include <sys/socket.h>
-#include <sys/types.h>
 #include <arpa/inet.h>
 #include <netinet/in.h>
+#include <sys/socket.h>
+#include <sys/types.h>
+#include <unistd.h>
 
 #include <logger.h>
 
-typedef struct
-{
+typedef struct {
   int sockfd;
 } server;
 
-server screate();
-void   slisten(server s, int port);
-int    saccept(server s);
-void   sclose(server s);
+server screate(int port);
+int saccept(server s);
+void sclose(server s);
 
 #endif /* SERVER_H */

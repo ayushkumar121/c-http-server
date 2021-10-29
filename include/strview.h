@@ -3,8 +3,7 @@
 
 #include <string.h>
 
-typedef struct
-{
+typedef struct {
   int count;
   char *ptr;
 } strview;
@@ -13,9 +12,9 @@ strview str(char *string);
 int streq(strview a, strview b);
 
 strview strsplit(strview view, char del);
-strview slice(strview view, int start, int count);
+strview strslice(strview view, int start, int count);
 
-//strview trim(strview str);
+// strview strvcat(strview a, strview b);
+// strview trim(strview str);
 
 #endif /* STRVIEW_H */
-
