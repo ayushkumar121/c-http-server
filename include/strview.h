@@ -1,8 +1,6 @@
 #ifndef STRVIEW_H
 #define STRVIEW_H
 
-#include <string.h>
-
 typedef struct {
   int count;
   char *ptr;

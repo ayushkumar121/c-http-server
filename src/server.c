@@ -10,7 +10,7 @@ server screate(int port) {
 
   /* Creating a socket for ipv4 */
   if ((s.sockfd = socket(AF_INET, SOCK_STREAM, 0)) == -1) {
-    logerror("Socket creation fad with error:\n\t %s", strerror(errno));
+    logerror("Socket creation failed with error:\n\t %s", strerror(errno));
 
     exit(EXIT_FAILURE);
   }

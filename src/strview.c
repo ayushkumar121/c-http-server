@@ -1,7 +1,15 @@
 #include <strview.h>
 
+int len(char *string) {
+  int count = 0;
+  while (*string++ != '\0') {
+    count++;
+  }
+  return count;
+}
+
 strview str(char *string) {
-  strview view = {.count = strlen(string), .ptr = string};
+  strview view = {.count = len(string), .ptr = string};
   return view;
 }
 

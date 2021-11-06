@@ -1,8 +1,14 @@
 #ifndef RESPONSE_H
 #define RESPONSE_H
 
+/* TODO: Remove libc dependency */
+#include <string.h>
 #include <stdlib.h>
+
 #include <unistd.h>
+#include <fcntl.h>
+#include <sys/stat.h>
+#include <sys/mman.h>
 #include <sys/socket.h>
 
 #include <http.h>
@@ -15,12 +21,15 @@
 typedef struct {
   strview key;
   strview value;
-} header;
+} field;
 
-/* typedef struct { */
-/*   http_status status; */
-/* } response; */
+typedef struct {
+  int count;
+  field fields[MAX_HEADER_FIELDS];
+} headers;
 
-void reswrite(int sockfd, strview body, int status);
+void reshtml(int sockfd, strview path, int status);
+void reswrite(int sockfd, strview body, headers head, int status);
 
-#endif
+
+#endif /* RESPONSE_H */

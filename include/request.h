@@ -1,7 +1,7 @@
 #ifndef REQUEST_H
 #define REQUEST_H
 
-#include <string.h>
+#include <memory.h>
 
 #include <sys/mman.h>
 #include <unistd.h>

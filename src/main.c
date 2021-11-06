@@ -1,9 +1,6 @@
 #include <errno.h>
-#include <stdio.h>
-#include <string.h>
-#include <unistd.h>
-
 #include <signal.h>
+#include <string.h>
 
 #include <logger.h>
 #include <request.h>
@@ -13,13 +10,8 @@
 
 void reqhandle(int sockfd) {
   request req = parsereq(sockfd);
-  strview url = str(req.url);
-
   loginfo("Request handled: %s", req.url);
-
-  strview body  = str("Hello world");
-  
-  reswrite(sockfd, body, HTTP_OK);
+  reshtml(sockfd, str("../www/index.html"), HTTP_OK);
 }
 
 void reqexit() { signal(SIGCHLD, SIG_IGN); }
