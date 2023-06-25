@@ -1,4 +1,4 @@
-# cServe
+# Simple C HTTP Sever
 ===========
 
 cServe is a web server written in c for POXIS compliant operating systems
